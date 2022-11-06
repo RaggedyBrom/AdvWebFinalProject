@@ -8,8 +8,13 @@ namespace RecipeManager.Models.Entities
     public class RecipeIngredient
     {
         public int Id { get; set; }
+
+        public Recipe? Recipe { get; set; }
         public int RecipeId { get; set; }
+
+        public Ingredient? Ingredient { get; set; }
         public int IngredientId { get; set; }
+
         public int Quantity { get; set; }
         [MaxLength(64)]
         public string? QuantityUnit { get; set; }
