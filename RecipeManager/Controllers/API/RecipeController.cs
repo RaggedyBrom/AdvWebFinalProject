@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using RecipeManager.Models.Entities;
@@ -26,9 +27,9 @@ namespace RecipeManager.Controllers.API
         }
 
         /// <summary>
-        /// This action method returns a collection of all recipes found by the repo, formatted as JSON.
+        /// This action method returns a collection of all recipes found by the repository, formatted as JSON.
         /// </summary>
-        /// <returns>A task indicating the result of the action method.</returns>
+        /// <returns>An array of recipes formatted as JSON.</returns>
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -40,29 +41,51 @@ namespace RecipeManager.Controllers.API
         /// This action method searches for and returns a single recipe, formatted as JSON.
         /// </summary>
         /// <param name="id">The Id of the recipe to be returned.</param>
-        /// <returns>A task indicating the result of the action method.</returns>
+        /// <returns>A 200 response with the recipe formatted as JSON if it was found,
+        /// or a 404 if it was not found.</returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
             var recipe = await _recipeRepo.ReadAsync(id);
-            return Ok(recipe);
+
+            if (recipe != null)
+                return Ok(recipe);
+            else
+                return NotFound();
         }
 
         /// <summary>
-        /// This action method takes in a recipe and uses the repo to store it to the database.
+        /// This action method takes in a recipe and uses the repository to store it to the database.
         /// </summary>
         /// <param name="recipe">A recipe object created from HTTP form data.</param>
-        /// <returns>A task indicating the result of the action method.</returns>
+        /// <returns>A 201 response containing the recipe and its location if the creation was successful,
+        /// or a 400 response if it was not successful.</returns>
         [HttpPost]
         public async Task<IActionResult> Post([FromForm]Recipe recipe)
         {
             if (ModelState.IsValid)
             {
                 await _recipeRepo.CreateAsync(recipe);
-                return Ok();
+                return CreatedAtAction("Get", new { id = recipe.Id }, recipe);
             }
-            return BadRequest();
-                
+            else
+                return BadRequest();
+        }
+
+        /// <summary>
+        /// This action method uses the repository to delete a specified recipe.
+        /// </summary>
+        /// <param name="id">The Id of the recipe to be deleted.</param>
+        /// <returns>A 204 response if the recipe was deleted, or a 404 response if it was not found.</returns>
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var deleted = await _recipeRepo.DeleteAsync(id);
+
+            if (deleted)
+                return NoContent();
+            else
+                return NotFound();
         }
     }
 }
