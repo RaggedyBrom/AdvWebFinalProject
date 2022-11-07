@@ -29,7 +29,8 @@ namespace RecipeManager.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true),
+                    Instuctions = table.Column<string>(type: "nvarchar(max)", maxLength: 8192, nullable: false),
                     PrepTime = table.Column<int>(type: "int", nullable: false),
                     CookTime = table.Column<int>(type: "int", nullable: false)
                 },

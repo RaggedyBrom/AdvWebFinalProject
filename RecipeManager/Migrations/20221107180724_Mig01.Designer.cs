@@ -12,7 +12,7 @@ using RecipeManager.Services;
 namespace RecipeManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221107140047_Mig01")]
+    [Migration("20221107180724_Mig01")]
     partial class Mig01
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -57,7 +57,12 @@ namespace RecipeManager.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
+
+                    b.Property<string>("Instuctions")
                         .IsRequired()
+                        .HasMaxLength(8192)
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
