@@ -17,7 +17,7 @@ namespace RecipeManager.Services
         public ApplicationDbContext(DbContextOptions options) : base(options) { }
 
         public DbSet<Ingredient> Ingredients => Set<Ingredient>();
-        public DbSet<Recipe> Recipe => Set<Recipe>();
+        public DbSet<Recipe> Recipes => Set<Recipe>();
         public DbSet<RecipeIngredient> RecipeIngredients => Set<RecipeIngredient>();
     }
 }
