@@ -12,7 +12,7 @@ namespace RecipeManager.Models.Entities
         public string Name { get; set; } = string.Empty;
         public FoodGroup? FoodGroup { get; set; }
 
-        // Load in entities from the RecipIngredient table to get recipes that use this ingredient.
+        // Load in entities from the RecipeIngredient table to get recipes that use this ingredient.
         public ICollection<RecipeIngredient> Recipes { get; set; } = new List<RecipeIngredient>();
     }
 
