@@ -12,7 +12,7 @@ using RecipeManager.Services;
 namespace RecipeManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221106212831_Mig01")]
+    [Migration("20221107140047_Mig01")]
     partial class Mig01
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -70,7 +70,7 @@ namespace RecipeManager.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Recipe");
+                    b.ToTable("Recipes");
                 });
 
             modelBuilder.Entity("RecipeManager.Models.Entities.RecipeIngredient", b =>
