@@ -13,7 +13,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(
     options => options.UseSqlServer(connectionString)
     );
 
-builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
+builder.Services.AddScoped<IRecipeRepository, DbRecipeRepository>();
 
 var app = builder.Build();
 #endregion

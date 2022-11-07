@@ -7,7 +7,7 @@ namespace RecipeManager.Services
     /// <summary>
     /// Provides implementation for database operations with Recipe entities.
     /// </summary>
-    public class RecipeRepository : IRecipeRepository
+    public class DbRecipeRepository : IRecipeRepository
     {
         private readonly ApplicationDbContext _db;
 
@@ -16,7 +16,7 @@ namespace RecipeManager.Services
         /// </summary>
         /// <param name="db">The database context that will be used by the repository
         /// to carry out database operations.</param>
-        public RecipeRepository(ApplicationDbContext db)
+        public DbRecipeRepository(ApplicationDbContext db)
         {
             _db = db;
         }
