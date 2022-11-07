@@ -58,7 +58,7 @@ namespace RecipeManager.Migrations
                         .HasMaxLength(2048)
                         .HasColumnType("nvarchar(2048)");
 
-                    b.Property<string>("Instuctions")
+                    b.Property<string>("Instructions")
                         .IsRequired()
                         .HasMaxLength(8192)
                         .HasColumnType("nvarchar(max)");

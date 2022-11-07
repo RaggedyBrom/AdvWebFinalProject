@@ -13,7 +13,7 @@ namespace RecipeManager.Models.Entities
         [MaxLength(2048)]
         public string? Description { get; set; } = string.Empty;
         [MaxLength(8192)]
-        public string Instuctions { get; set; } = string.Empty;
+        public string Instructions { get; set; } = string.Empty;
         public int PrepTime { get; set; }
         public int CookTime { get; set; }
 
