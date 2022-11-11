@@ -70,6 +70,7 @@ namespace RecipeManager.Services
             if (dbRecipe != null)
             {
                 dbRecipe.Name = updatedRecipe.Name;
+                dbRecipe.Instructions = updatedRecipe.Instructions;
                 dbRecipe.Description = updatedRecipe.Description;
                 dbRecipe.PrepTime = updatedRecipe.PrepTime;
                 dbRecipe.CookTime = updatedRecipe.CookTime;
