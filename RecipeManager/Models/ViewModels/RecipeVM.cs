@@ -29,7 +29,6 @@ namespace RecipeManager.Models.ViewModels
         {
             return new Recipe
             {
-                Id = this.Id,
                 Name = this.Name,
                 Description = this.Description,
                 Instructions = this.Instructions,
