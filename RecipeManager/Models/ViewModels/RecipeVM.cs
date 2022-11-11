@@ -19,5 +19,23 @@ namespace RecipeManager.Models.ViewModels
         public int CookTime { get; set; }
 
         List<RecipeIngredientVM> RecipeIngredients { get; set; } = new List<RecipeIngredientVM>();
+
+        /// <summary>
+        /// Creates a new Recipe object based on the values of the current view model instance. Ingredients
+        /// are not handled and must be assigned elsewhere.
+        /// </summary>
+        /// <returns>A Recipe object based on the values of the current view model instance.</returns>
+        public Recipe GetRecipe()
+        {
+            return new Recipe
+            {
+                Id = this.Id,
+                Name = this.Name,
+                Description = this.Description,
+                Instructions = this.Instructions,
+                PrepTime = this.PrepTime,
+                CookTime = this.CookTime
+            };
+        }
     }
 }
