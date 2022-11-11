@@ -21,6 +21,24 @@ namespace RecipeManager.Models.ViewModels
         List<RecipeIngredientVM> RecipeIngredients { get; set; } = new List<RecipeIngredientVM>();
 
         /// <summary>
+        /// Creates a RecipeVM with data corresponding to the passed Recipe object.
+        /// </summary>
+        /// <param name="recipe">A Recipe from which to create a RecipeVM.</param>
+        /// <returns>The created RecipeVM object.</returns>
+        public static RecipeVM GetRecipeVM(Recipe recipe)
+        {
+            return new RecipeVM
+            {
+                Id = recipe.Id,
+                Name = recipe.Name,
+                Description = recipe.Description,
+                Instructions = recipe.Instructions,
+                PrepTime = recipe.PrepTime,
+                CookTime = recipe.CookTime,
+            };
+        }
+
+        /// <summary>
         /// Creates a new Recipe object based on the values of the current view model instance. Ingredients
         /// are not handled and must be assigned elsewhere.
         /// </summary>
