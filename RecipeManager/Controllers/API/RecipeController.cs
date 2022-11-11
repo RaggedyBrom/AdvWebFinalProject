@@ -103,19 +103,21 @@ namespace RecipeManager.Controllers.API
         /// This action method uses the reposistory to replace a specified Recipe.
         /// </summary>
         /// <param name="recipeVM">A RecipeVM created from HTTP form data.</param>
+        /// <param name="id">The Id of the Recipe to be replaced.</param>
         /// <returns>A 204 response if the Recipe was replaced, or a 404 response if it was not found.</returns>
-        public async Task<IActionResult> Put([FromForm]RecipeVM recipeVM)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, [FromForm]RecipeVM recipeVM)
         {
             if (ModelState.IsValid)
             {
-                var recipe = await _recipeRepo.UpdateAsync(recipeVM.Id, recipeVM.GetRecipe());
+                var recipe = await _recipeRepo.UpdateAsync(id, recipeVM.GetRecipe());
 
                 if (recipe != null)
                 {
                     return NoContent();
                 }
                 else
-                    return NotFound("No resource was found with the given Id.");
+                    return NotFound("Cannot replace resource with the given Id.");
             }
             else
                 return BadRequest("The resource provided was malformed.");
