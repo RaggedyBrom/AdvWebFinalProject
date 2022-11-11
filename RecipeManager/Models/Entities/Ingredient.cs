@@ -16,6 +16,9 @@ namespace RecipeManager.Models.Entities
         public ICollection<RecipeIngredient> Recipes { get; set; } = new List<RecipeIngredient>();
     }
 
+    /// <summary>
+    /// Enum with values corresponding to five food groups.
+    /// </summary>
     public enum FoodGroup
     {
         Fruit,
