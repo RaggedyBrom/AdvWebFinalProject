@@ -18,6 +18,6 @@ namespace RecipeManager.Models.Entities
         public int CookTime { get; set; }
 
         // Load in entities from the RecipeIngredient table to get ingredients used in this recipe.
-        public ICollection<RecipeIngredient> Ingredients = new List<RecipeIngredient>();
+        public ICollection<RecipeIngredient> Ingredients { get; set; } = new List<RecipeIngredient>();
     }
 }
