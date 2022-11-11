@@ -9,13 +9,13 @@ namespace RecipeManager.Services
     {
 
         /// <summary>
-        /// Reads all recipes from the database.
+        /// Reads all recipes from the database. Uses eager loading to bring in related data.
         /// </summary>
         /// <returns>A collection of recipes from the database.</returns>
         public Task<ICollection<Recipe>> ReadAllAsync();
 
         /// <summary>
-        /// Reads a single recipe from the database.
+        /// Reads a single recipe from the database. Uses eager loading to bring in related data.
         /// </summary>
         /// <param name="recipeId">The Id of the desired recipe.</param>
         /// <returns>A reference to desired recipe, or null if it was not found.</returns>

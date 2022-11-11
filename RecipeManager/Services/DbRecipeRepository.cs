@@ -47,19 +47,25 @@ namespace RecipeManager.Services
         // Defined in IRecipeRepository
         public async Task<ICollection<Recipe>> ReadAllAsync()
         {
-            return await _db.Recipes.ToListAsync();
+            return await _db.Recipes
+                .Include(r => r.Ingredients)
+                    .ThenInclude(ri => ri.Ingredient)
+                .ToListAsync();
         }
 
         // Defined in IRecipeRepository
         public async Task<Recipe?> ReadAsync(int recipeId)
         {
-            return await _db.Recipes.FindAsync(recipeId);
+            return await _db.Recipes
+                .Include(r => r.Ingredients)
+                    .ThenInclude(ri => ri.Ingredient)
+                .FirstOrDefaultAsync(r => r.Id == recipeId);
         }
 
         // Defined in IRecipeRepository
         public async Task<Recipe?> UpdateAsync(int recipeId, Recipe updatedRecipe)
         {
-            var dbRecipe = await _db.Recipes.FindAsync(recipeId);
+            var dbRecipe = await ReadAsync(recipeId);
 
             if (dbRecipe != null)
             {
