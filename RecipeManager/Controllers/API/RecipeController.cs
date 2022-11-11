@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using RecipeManager.Models.Entities;
+using RecipeManager.Models.ViewModels;
 using RecipeManager.Services;
 using System.Net;
 
@@ -34,7 +35,10 @@ namespace RecipeManager.Controllers.API
         public async Task<IActionResult> Get()
         {
             var recipes = await _recipeRepo.ReadAllAsync();
-            return Ok(recipes);
+
+            var model = recipes.Select(r => RecipeVM.GetRecipeVM(r));
+
+            return Ok(model);
         }
 
         /// <summary>
@@ -49,7 +53,10 @@ namespace RecipeManager.Controllers.API
             var recipe = await _recipeRepo.ReadAsync(id);
 
             if (recipe != null)
-                return Ok(recipe);
+            {
+                var model = RecipeVM.GetRecipeVM(recipe);
+                return Ok(model);
+            }   
             else
                 return NotFound();
         }
@@ -61,10 +68,11 @@ namespace RecipeManager.Controllers.API
         /// <returns>A 201 response containing the recipe and its location if the creation was successful,
         /// or a 400 response if it was not successful.</returns>
         [HttpPost]
-        public async Task<IActionResult> Post([FromForm]Recipe recipe)
+        public async Task<IActionResult> Post([FromForm]RecipeVM recipeVM)
         {
             if (ModelState.IsValid)
             {
+                var recipe = recipeVM.GetRecipe();
                 await _recipeRepo.CreateAsync(recipe);
                 return CreatedAtAction("Get", new { id = recipe.Id }, recipe);
             }
