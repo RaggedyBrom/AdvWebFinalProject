@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace RecipeManager.Models.Entities
 {
@@ -10,21 +11,31 @@ namespace RecipeManager.Models.Entities
         public int Id { get; set; }
         [MaxLength(64)]
         public string Name { get; set; } = string.Empty;
-        public FoodGroup? FoodGroup { get; set; }
+        public IngredientType? Type { get; set; }
 
         // Load in entities from the RecipeIngredient table to get recipes that use this ingredient.
         public ICollection<RecipeIngredient> Recipes { get; set; } = new List<RecipeIngredient>();
     }
 
     /// <summary>
-    /// Enum with values corresponding to five food groups.
+    /// Enum with values corresponding to different types of ingredients.
     /// </summary>
-    public enum FoodGroup
+    public enum IngredientType
     {
         Fruit,
         Vegetable,
         Grain,
-        Protein,
-        Dairy
+        Bean,
+        Meat,
+        Nut,
+        Seafood,
+        Egg,
+        Dairy,
+        Seed,
+        Herb,
+        Spice,
+        Seasoning,
+        Condiment,
+        Fat
     }
 }

@@ -14,7 +14,7 @@ namespace RecipeManager.Models.ViewModels
         [MaxLength(64)]
         public string IngredientName { get; set; } = string.Empty;
 
-        public FoodGroup FoodGroup { get; set; }
+        public IngredientType IngredientType { get; set; }
 
         public int Quantity { get; set; }
         [MaxLength(64)]
