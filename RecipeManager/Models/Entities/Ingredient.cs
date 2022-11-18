@@ -6,6 +6,7 @@ namespace RecipeManager.Models.Entities
     /// <summary>
     /// Models an ingredient.
     /// </summary>
+    [Index(nameof(Name), IsUnique = true)]
     public class Ingredient
     {
         public int Id { get; set; }
