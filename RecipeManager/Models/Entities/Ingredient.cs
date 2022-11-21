@@ -12,7 +12,7 @@ namespace RecipeManager.Models.Entities
         public int Id { get; set; }
         [MaxLength(64)]
         public string Name { get; set; } = string.Empty;
-        public IngredientType? Type { get; set; }
+        public IngredientType Type { get; set; }
 
         // Load in entities from the RecipeIngredient table to get recipes that use this ingredient.
         public ICollection<RecipeIngredient> Recipes { get; set; } = new List<RecipeIngredient>();

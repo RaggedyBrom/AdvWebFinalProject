@@ -12,7 +12,7 @@ using RecipeManager.Services;
 namespace RecipeManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221107191359_Mig01")]
+    [Migration("20221120235821_Mig01")]
     partial class Mig01
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,15 +32,18 @@ namespace RecipeManager.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("FoodGroup")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Ingredients");
                 });
@@ -120,7 +123,7 @@ namespace RecipeManager.Migrations
                         .IsRequired();
 
                     b.HasOne("RecipeManager.Models.Entities.Recipe", "Recipe")
-                        .WithMany()
+                        .WithMany("Ingredients")
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -133,6 +136,11 @@ namespace RecipeManager.Migrations
             modelBuilder.Entity("RecipeManager.Models.Entities.Ingredient", b =>
                 {
                     b.Navigation("Recipes");
+                });
+
+            modelBuilder.Entity("RecipeManager.Models.Entities.Recipe", b =>
+                {
+                    b.Navigation("Ingredients");
                 });
 #pragma warning restore 612, 618
         }

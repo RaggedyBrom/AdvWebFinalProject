@@ -14,6 +14,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(
     );
 
 builder.Services.AddScoped<IRecipeRepository, DbRecipeRepository>();
+builder.Services.AddScoped<IIngredientRepository, DbIngredientRepository>();
 
 var app = builder.Build();
 #endregion
