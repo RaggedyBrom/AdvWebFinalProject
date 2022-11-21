@@ -46,6 +46,38 @@ namespace RecipeManager.Controllers.API
                 return BadRequest();
         }
 
+        /// <summary>
+        /// This action method returns a collection of all ingredients found by the repository,
+        /// sent as IngredientVMs and formatted as JSON.
+        /// </summary>
+        /// <returns>An array of IngredientVMs formatted as JSON.</returns>
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var ingredients = await _ingredientRepo.ReadAllAsync();
+            var model = ingredients.Select(i => IngredientVM.GetIngredientVM(i));
 
+            return Ok(model);
+        }
+
+        /// <summary>
+        /// This action method searches for and returns a single Ingredient found by the repository,
+        /// sent as an IngredientVM and formatted as JSON.
+        /// </summary>
+        /// <param name="id">The id of the Ingredient to find.</param>
+        /// <returns>A 200 response containing the IngredientVM if found, or a 404 if it was not found.</returns>
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            var ingredient = await _ingredientRepo.ReadAsync(id);
+            
+            if (ingredient != null)
+            {
+                var model = IngredientVM.GetIngredientVM(ingredient);
+                return Ok(model);
+            }
+            else
+                return NotFound("No resource was found with the given Id.");
+        }
     }
 }
