@@ -15,6 +15,7 @@ namespace RecipeManager.Models.Entities
         public Ingredient? Ingredient { get; set; }
         public int IngredientId { get; set; }
 
+        [Required, Range(1, int.MaxValue)]
         public int Quantity { get; set; }
         [MaxLength(64)]
         public string? QuantityUnit { get; set; }
