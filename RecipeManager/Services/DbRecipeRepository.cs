@@ -105,7 +105,9 @@ namespace RecipeManager.Services
         // Defined in IRecipeRepository
         public async Task<RecipeIngredient?> ReadIngredientAsync(int recipeId, int ingredientId)
         {
-            return await _db.RecipeIngredients.FirstOrDefaultAsync(ri => ri.RecipeId == recipeId && ri.IngredientId == ingredientId);
+            return await _db.RecipeIngredients
+                .Include(ri => ri.Ingredient)
+                .FirstOrDefaultAsync(ri => ri.RecipeId == recipeId && ri.IngredientId == ingredientId);
         }
 
         // Defined in IRecipeRepository
