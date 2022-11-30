@@ -30,6 +30,31 @@ namespace RecipeManager.Services
         }
 
         // Defined in IRecipeRepository
+        public async Task<RecipeIngredient?> CreateIngredientAsync(int recipeId, int ingredientId)
+        {
+            var recipe = await ReadAsync(recipeId);
+            var ingredient = await _db.Ingredients.FirstOrDefaultAsync(i => i.Id == ingredientId);
+
+            RecipeIngredient? recipeIngredient;
+
+            if (recipe != null && ingredient != null)
+            {
+                recipeIngredient = new RecipeIngredient();
+                recipeIngredient.Recipe = recipe;
+                recipeIngredient.Ingredient = ingredient;
+
+                recipe.Ingredients.Add(recipeIngredient);
+                ingredient.Recipes.Add(recipeIngredient);
+
+                await _db.SaveChangesAsync();
+            }
+            else
+                recipeIngredient = null;
+
+            return recipeIngredient;
+        }
+
+        // Defined in IRecipeRepository
         public async Task<bool> DeleteAsync(int recipeId)
         {
             var recipe = await ReadAsync(recipeId);
@@ -39,6 +64,21 @@ namespace RecipeManager.Services
             else
             {
                 _db.Recipes.Remove(recipe);
+                await _db.SaveChangesAsync();
+                return true;
+            }
+        }
+
+        // Defined in IRecipeRepository
+        public async Task<bool> DeleteIngredientAsync(int recipeId, int ingredientId)
+        {
+            var recipeIngredient = await ReadIngredientAsync(recipeId, ingredientId);
+
+            if (recipeIngredient == null)
+                return false;
+            else
+            {
+                _db.RecipeIngredients.Remove(recipeIngredient);
                 await _db.SaveChangesAsync();
                 return true;
             }
@@ -63,6 +103,12 @@ namespace RecipeManager.Services
         }
 
         // Defined in IRecipeRepository
+        public async Task<RecipeIngredient?> ReadIngredientAsync(int recipeId, int ingredientId)
+        {
+            return await _db.RecipeIngredients.FirstOrDefaultAsync(ri => ri.RecipeId == recipeId && ri.IngredientId == ingredientId);
+        }
+
+        // Defined in IRecipeRepository
         public async Task<Recipe?> UpdateAsync(int recipeId, Recipe updatedRecipe)
         {
             var dbRecipe = await ReadAsync(recipeId);
@@ -80,6 +126,22 @@ namespace RecipeManager.Services
             }
 
             return dbRecipe;
+        }
+
+        // Defined in IRecipeRepository
+        public async Task<RecipeIngredient?> UpdateIngredientAsync(int recipeId, int ingredientId, RecipeIngredient updatedRecipeIngredient)
+        {
+            var recipeIngredient = await ReadIngredientAsync(recipeId, ingredientId);
+
+            if (recipeIngredient != null)
+            {
+                recipeIngredient.Quantity = updatedRecipeIngredient.Quantity;
+                recipeIngredient.QuantityUnit = updatedRecipeIngredient.QuantityUnit;
+                recipeIngredient.Calories = updatedRecipeIngredient.Calories;
+
+                await _db.SaveChangesAsync();
+            }
+            return recipeIngredient;
         }
     }
 }

@@ -42,5 +42,42 @@ namespace RecipeManager.Services
         /// <param name="recipeId">The Id of the recipe to be deleted.</param>
         /// <returns>A boolean incidicating whether or not the operation was successful.</returns>
         public Task<bool> DeleteAsync(int recipeId);
+
+        /// <summary>
+        /// Reads the association between a recipe and an ingredient from the database.
+        /// </summary>
+        /// <param name="recipeId">The Id of the recipe.</param>
+        /// <param name="ingredientId">The Id of the ingredient.</param>
+        /// <returns>The associative entity if the association was found,
+        /// or null if the association does not exist.</returns>
+        public Task<RecipeIngredient?> ReadIngredientAsync(int recipeId, int ingredientId);
+
+        /// <summary>
+        /// Creates an association between a recipe and an ingredient in the database.
+        /// </summary>
+        /// <param name="recipeId">The Id of the recipe.</param>
+        /// <param name="ingredientId">The Id of the ingredient.</param>
+        /// <returns>The recipe part of the association, or null if the association
+        /// was not created.</returns>
+        public Task<RecipeIngredient?> CreateIngredientAsync(int recipeId, int ingredientId);
+
+        /// <summary>
+        /// Updates the association between a recipe and an ingredient in the database.
+        /// </summary>
+        /// <param name="recipeId">The Id of the recipe.</param>
+        /// <param name="ingredientId">The Id of the ingredient.</param>
+        /// <param name="updatedRecipeIngredient">A model representing the relationship between
+        /// a recipe and an ingredient.</param>
+        /// <returns>The associative entity if the association was updated, or null if the association was not
+        /// updated.</returns>
+        public Task<RecipeIngredient?> UpdateIngredientAsync(int recipeId, int ingredientId, RecipeIngredient updatedRecipeIngredient);
+
+        /// <summary>
+        /// Deletes the association between a recipe and an ingredient in the database.
+        /// </summary>
+        /// <param name="recipeId">The Id of the recipe.</param>
+        /// <param name="ingredientId">The Id of the ingredient.</param>
+        /// <returns>A boolean indicating whether or not the operation was successful.</returns>
+        public Task<bool> DeleteIngredientAsync(int recipeId, int ingredientId);
     }
 }
