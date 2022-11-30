@@ -20,7 +20,7 @@ namespace RecipeManager.Models.ViewModels
         [Required]
         public int CookTime { get; set; }
 
-        List<RecipeIngredientVM> RecipeIngredients { get; set; } = new List<RecipeIngredientVM>();
+        public List<RecipeIngredientVM> RecipeIngredients { get; set; } = new List<RecipeIngredientVM>();
 
         /// <summary>
         /// Creates a RecipeVM with data corresponding to the passed Recipe object.
