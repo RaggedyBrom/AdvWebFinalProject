@@ -9,13 +9,15 @@ namespace RecipeManager.Models.ViewModels
     public class RecipeVM
     {
         public int Id { get; set; }
-        [MaxLength(64)]
+        [Required, MaxLength(64)]
         public string Name { get; set; } = string.Empty;
         [MaxLength(2048)]
         public string? Description { get; set; } = string.Empty;
         [MaxLength(8192)]
         public string Instructions { get; set; } = string.Empty;
+        [Required]
         public int PrepTime { get; set; }
+        [Required]
         public int CookTime { get; set; }
 
         List<RecipeIngredientVM> RecipeIngredients { get; set; } = new List<RecipeIngredientVM>();
@@ -35,6 +37,9 @@ namespace RecipeManager.Models.ViewModels
                 Instructions = recipe.Instructions,
                 PrepTime = recipe.PrepTime,
                 CookTime = recipe.CookTime,
+
+                // For each RecipeIngredient in the Recipe, transform it into a RecipeIngredientVM
+                RecipeIngredients = recipe.Ingredients.Select(ri => RecipeIngredientVM.GetRecipeIngredientVM(ri)).ToList()
             };
         }
 
