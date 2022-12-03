@@ -10,35 +10,59 @@
     <h4>RecipeVM</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Description)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Description)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Instructions)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Instructions)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.PrepTime)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PrepTime) min.
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.CookTime)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.CookTime) min.
+        </dd>
+        <dt class="col-sm-2">
+            Total Calories
+        </dt>
+        <dd class="col-sm-10">
+            @{
+                var totalCalories = 0;
+                foreach (var item in Model.RecipeIngredients)
+                {
+                    totalCalories += item.Calories ?? 0;
+                }
+                @totalCalories
+            }
+        </dd>
+        <dt class="col-sm-2">
+            Ingredients
+        </dt>
+        <dd>
+            <ul>
+                @foreach (var item in Model.RecipeIngredients)
+                {
+                    <li>@item.IngredientName - @item.Quantity @item.QuantityUnit</li>
+                }
+            </ul>
         </dd>
     </dl>
 </div>
