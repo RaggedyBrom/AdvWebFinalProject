@@ -79,5 +79,27 @@ namespace RecipeManager.Controllers.API
             else
                 return NotFound("No resource was found with the given Id.");
         }
+
+        /// <summary>
+        /// This action method returns all the recipes that contain a specific ingredient.
+        /// </summary>
+        /// <param name="id">The Id of the ingredient to search for.</param>
+        /// <returns>A 200 response containing the collection of RecipeVMs if the Ingredient was found,
+        /// or a 404 if it was not found.</returns>
+        [HttpGet("{id}/recipe")]
+        public async Task<IActionResult> GetRecipes(int id)
+        {
+            var ingredient = await _ingredientRepo.ReadAsync(id);
+
+            if (ingredient != null)
+            {
+                // Convert all the Recipes to RecipeVMs and return the collection as JSON
+                var recipeIngredients = ingredient.Recipes;
+                var model = recipeIngredients.Select(ri => RecipeVM.GetRecipeVM(ri.Recipe!));
+                return Ok(model);
+            }
+            else
+                return NotFound("No resource was found with the given Id.");
+        }
     }
 }
