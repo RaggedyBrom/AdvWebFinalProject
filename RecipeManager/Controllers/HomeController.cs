@@ -15,7 +15,7 @@ namespace RecipeManager.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Recipe");
         }
 
         public IActionResult Privacy()
