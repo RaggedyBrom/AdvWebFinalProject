@@ -32,7 +32,7 @@ namespace RecipeManager.Services
             await _db.Database.EnsureDeletedAsync();
             await _db.Database.MigrateAsync();
 
-            await _db.Recipes.AddAsync(new Recipe
+            var pumpkinPie = await _db.Recipes.AddAsync(new Recipe
             {
                 Name = "Pumpkin Pie",
                 Instructions = "1. Make the pie.\n2. Bake the pie.",
@@ -57,22 +57,22 @@ namespace RecipeManager.Services
                 PrepTime = 45
             });
 
-            await _db.Ingredients.AddAsync(new Ingredient
+            var pumpkin = await _db.Ingredients.AddAsync(new Ingredient
             {
                 Name = "Pumpkin",
                 Type = IngredientType.Vegetable
             });
-            await _db.Ingredients.AddAsync(new Ingredient
+            var flour = await _db.Ingredients.AddAsync(new Ingredient
             {
                 Name = "Flour",
                 Type = IngredientType.Grain
             });
-            await _db.Ingredients.AddAsync(new Ingredient
+            var sugar = await _db.Ingredients.AddAsync(new Ingredient
             {
                 Name = "Sugar",
                 Type = IngredientType.Spice
             });
-            await _db.Ingredients.AddAsync(new Ingredient
+            var water = await _db.Ingredients.AddAsync(new Ingredient
             {
                 Name = "Water",
                 Type = IngredientType.Seasoning
@@ -93,42 +93,34 @@ namespace RecipeManager.Services
                 Type = IngredientType.Dairy
             });
 
-            await _db.SaveChangesAsync();
-
-            var pumpkinPie = await _db.Recipes.FirstOrDefaultAsync(r => r.Name == "Pumpkin Pie");
-            var pumpkin = await _db.Ingredients.FirstOrDefaultAsync(i => i.Name == "Pumpkin");
-            var flour = await _db.Ingredients.FirstOrDefaultAsync(i => i.Name == "Flour");
-            var water = await _db.Ingredients.FirstOrDefaultAsync(i => i.Name == "Water");
-            var sugar = await _db.Ingredients.FirstOrDefaultAsync(i => i.Name == "Sugar");
-
             await _db.RecipeIngredients.AddAsync(new RecipeIngredient
             {
-                Recipe = pumpkinPie,
-                Ingredient = pumpkin,
+                Recipe = pumpkinPie.Entity,
+                Ingredient = pumpkin.Entity,
                 Quantity = 1,
                 QuantityUnit = "cup",
                 Calories = 300
             });
             await _db.RecipeIngredients.AddAsync(new RecipeIngredient
             {
-                Recipe = pumpkinPie,
-                Ingredient = flour,
+                Recipe = pumpkinPie.Entity,
+                Ingredient = flour.Entity,
                 Quantity = 2,
                 QuantityUnit = "cups",
                 Calories = 500
             });
             await _db.RecipeIngredients.AddAsync(new RecipeIngredient
             {
-                Recipe = pumpkinPie,
-                Ingredient = water,
+                Recipe = pumpkinPie.Entity,
+                Ingredient = water.Entity,
                 Quantity = 240,
                 QuantityUnit = "mL",
                 Calories = 0
             });
             await _db.RecipeIngredients.AddAsync(new RecipeIngredient
             {
-                Recipe = pumpkinPie,
-                Ingredient = sugar,
+                Recipe = pumpkinPie.Entity,
+                Ingredient = sugar.Entity,
                 Quantity = 3,
                 QuantityUnit = "tbsp",
                 Calories = 150
