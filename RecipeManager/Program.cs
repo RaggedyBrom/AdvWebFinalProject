@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using RecipeManager.Services;
 
 #region Builder setup
@@ -16,8 +17,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 builder.Services.AddScoped<IRecipeRepository, DbRecipeRepository>();
 builder.Services.AddScoped<IIngredientRepository, DbIngredientRepository>();
 
+builder.Services.AddScoped<DbInitializer>();
+
 var app = builder.Build();
 #endregion
+
+SeedDatabase(app);
 
 #region Pipeline and middleware setup
 // Configure the HTTP request pipeline.
@@ -41,3 +46,21 @@ app.MapControllerRoute(
 #endregion
 
 app.Run();
+
+// This method seeds the database using a scoped instance of the
+// DbInitializor class
+static async void SeedDatabase(WebApplication app)
+{
+    using var scope = app.Services.CreateScope();
+    var services = scope.ServiceProvider;
+    try
+    {
+        var initializer = services.GetRequiredService<DbInitializer>();
+        await initializer.SeedAsync();
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError($"An error occurred while seeding the database. {ex.Message}");
+    }
+}
