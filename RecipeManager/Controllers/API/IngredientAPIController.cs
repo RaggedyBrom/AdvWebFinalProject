@@ -9,7 +9,7 @@ namespace RecipeManager.Controllers.API
     /// <summary>
     /// Handles API requests that concern ingredients. Base route is "api/ingredient".
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("api/ingredient")]
     [ApiController]
     public class IngredientAPIController : ControllerBase
     {
