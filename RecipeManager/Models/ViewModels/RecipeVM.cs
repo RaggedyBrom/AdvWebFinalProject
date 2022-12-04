@@ -1,4 +1,5 @@
 ﻿using RecipeManager.Models.Entities;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace RecipeManager.Models.ViewModels
@@ -15,9 +16,9 @@ namespace RecipeManager.Models.ViewModels
         public string? Description { get; set; } = string.Empty;
         [MaxLength(8192)]
         public string Instructions { get; set; } = string.Empty;
-        [Required]
+        [Required, DisplayName("Prep Time")]
         public int PrepTime { get; set; }
-        [Required]
+        [Required, DisplayName("Cook Time")]
         public int CookTime { get; set; }
 
         public List<RecipeIngredientVM> RecipeIngredients { get; set; } = new List<RecipeIngredientVM>();

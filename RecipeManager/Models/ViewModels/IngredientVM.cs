@@ -1,4 +1,5 @@
 ﻿using RecipeManager.Models.Entities;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace RecipeManager.Models.ViewModels
@@ -9,7 +10,9 @@ namespace RecipeManager.Models.ViewModels
     public class IngredientVM
     {
         public int Id { get; set; }
+        [Required]
         public string Name { get; set; } = string.Empty;
+        [Required]
         public IngredientType Type { get; set; }
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using RecipeManager.Models.Entities;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace RecipeManager.Models.ViewModels
@@ -12,9 +13,9 @@ namespace RecipeManager.Models.ViewModels
 
         [Required, Range(1, int.MaxValue)]
         public int IngredientId { get; set; }
-        [MaxLength(64)]
+        [DisplayName("Name"), MaxLength(64)]
         public string? IngredientName { get; set; } = string.Empty;
-
+        [DisplayName("Type")]
         public IngredientType? IngredientType { get; set; }
 
         [MaxLength(64)]
