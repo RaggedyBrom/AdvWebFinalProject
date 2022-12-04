@@ -60,7 +60,7 @@
             <ul>
                 @foreach (var item in Model.RecipeIngredients)
                 {
-                    <li>@item.IngredientName - @item.Quantity @item.QuantityUnit</li>
+                    <li>@item.IngredientName - @item.Amount - @item.Calories calories</li>
                 }
             </ul>
         </dd>

@@ -137,8 +137,7 @@ namespace RecipeManager.Services
 
             if (recipeIngredient != null)
             {
-                recipeIngredient.Quantity = updatedRecipeIngredient.Quantity;
-                recipeIngredient.QuantityUnit = updatedRecipeIngredient.QuantityUnit;
+                recipeIngredient.Amount = updatedRecipeIngredient.Amount;
                 recipeIngredient.Calories = updatedRecipeIngredient.Calories;
 
                 await _db.SaveChangesAsync();

@@ -40,7 +40,7 @@ namespace RecipeManager.Services
                 CookTime = 40,
                 PrepTime = 30
             });
-            await _db.Recipes.AddAsync(new Recipe
+            var pumpkinChili = await _db.Recipes.AddAsync(new Recipe
             {
                 Name = "Pumpkin Chili",
                 Instructions = "1. Put the ingredients in a pot.\n2. Cook until done.\n3. Stir occasionally.",
@@ -48,7 +48,7 @@ namespace RecipeManager.Services
                 CookTime = 90,
                 PrepTime = 15
             });
-            await _db.Recipes.AddAsync(new Recipe
+            var pumpkinRavioli = await _db.Recipes.AddAsync(new Recipe
             {
                 Name = "Pumpkin Ravioli",
                 Instructions = "1. Form the ravioli.\n2. Put them in the oven.",
@@ -59,7 +59,7 @@ namespace RecipeManager.Services
 
             var pumpkin = await _db.Ingredients.AddAsync(new Ingredient
             {
-                Name = "Pumpkin",
+                Name = "Pumpkin Puree",
                 Type = IngredientType.Vegetable
             });
             var flour = await _db.Ingredients.AddAsync(new Ingredient
@@ -77,17 +77,17 @@ namespace RecipeManager.Services
                 Name = "Water",
                 Type = IngredientType.Seasoning
             });
-            await _db.Ingredients.AddAsync(new Ingredient
+            var hamburger = await _db.Ingredients.AddAsync(new Ingredient
             {
-                Name = "Hamburger",
+                Name = "Hamburger Meat",
                 Type = IngredientType.Meat
             });
-            await _db.Ingredients.AddAsync(new Ingredient
+            var kidneyBeans = await _db.Ingredients.AddAsync(new Ingredient
             {
                 Name = "Kidney Beans",
                 Type = IngredientType.Bean
             });
-            await _db.Ingredients.AddAsync(new Ingredient
+            var ricottaCheese = await _db.Ingredients.AddAsync(new Ingredient
             {
                 Name = "Ricotta Cheese",
                 Type = IngredientType.Dairy
@@ -97,34 +97,53 @@ namespace RecipeManager.Services
             {
                 Recipe = pumpkinPie.Entity,
                 Ingredient = pumpkin.Entity,
-                Quantity = 1,
-                QuantityUnit = "cup",
+                Amount = "1 cup",
                 Calories = 300
             });
             await _db.RecipeIngredients.AddAsync(new RecipeIngredient
             {
                 Recipe = pumpkinPie.Entity,
                 Ingredient = flour.Entity,
-                Quantity = 2,
-                QuantityUnit = "cups",
+                Amount = "2 cups",
                 Calories = 500
             });
             await _db.RecipeIngredients.AddAsync(new RecipeIngredient
             {
                 Recipe = pumpkinPie.Entity,
                 Ingredient = water.Entity,
-                Quantity = 240,
-                QuantityUnit = "mL",
+                Amount = "240 mL",
                 Calories = 0
             });
             await _db.RecipeIngredients.AddAsync(new RecipeIngredient
             {
                 Recipe = pumpkinPie.Entity,
                 Ingredient = sugar.Entity,
-                Quantity = 3,
-                QuantityUnit = "tbsp",
+                Amount = "3 tbsp",
                 Calories = 150
             });
+
+            await _db.RecipeIngredients.AddAsync(new RecipeIngredient
+            {
+                Recipe = pumpkinChili.Entity,
+                Ingredient = pumpkin.Entity,
+                Amount = "2 cups",
+                Calories = 300
+            });
+            await _db.RecipeIngredients.AddAsync(new RecipeIngredient
+            {
+                Recipe = pumpkinChili.Entity,
+                Ingredient = hamburger.Entity,
+                Amount = "8 oz",
+                Calories = 400
+            });
+            await _db.RecipeIngredients.AddAsync(new RecipeIngredient
+            {
+                Recipe = pumpkinChili.Entity,
+                Ingredient = pumpkin.Entity,
+                Amount = "2 cups",
+                Calories = 300
+            });
+
 
             await _db.SaveChangesAsync();
         }

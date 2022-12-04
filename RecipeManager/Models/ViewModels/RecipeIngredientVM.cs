@@ -17,10 +17,8 @@ namespace RecipeManager.Models.ViewModels
 
         public IngredientType? IngredientType { get; set; }
 
-        [Required, Range(1, int.MaxValue)]
-        public int Quantity { get; set; }
         [MaxLength(64)]
-        public string? QuantityUnit { get; set; }
+        public string? Amount { get; set; }
         public int? Calories { get; set; }
 
         /// <summary>
@@ -31,8 +29,7 @@ namespace RecipeManager.Models.ViewModels
         {
             return new RecipeIngredient()
             {
-                Quantity = this.Quantity,
-                QuantityUnit = this.QuantityUnit,
+                Amount = this.Amount,
                 Calories = this.Calories,
             };
         }
@@ -50,8 +47,7 @@ namespace RecipeManager.Models.ViewModels
                 IngredientId = recipeIngredient.IngredientId,
                 IngredientName = recipeIngredient.Ingredient!.Name,
                 IngredientType = recipeIngredient.Ingredient!.Type,
-                Quantity = recipeIngredient.Quantity,
-                QuantityUnit = recipeIngredient.QuantityUnit,
+                Amount = recipeIngredient.Amount,
                 Calories = recipeIngredient.Calories
             };
         }
