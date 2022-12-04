@@ -122,7 +122,6 @@ namespace RecipeManager.Services
                 dbRecipe.Description = updatedRecipe.Description;
                 dbRecipe.PrepTime = updatedRecipe.PrepTime;
                 dbRecipe.CookTime = updatedRecipe.CookTime;
-                dbRecipe.Ingredients = updatedRecipe.Ingredients;
 
                 await _db.SaveChangesAsync();
             }
