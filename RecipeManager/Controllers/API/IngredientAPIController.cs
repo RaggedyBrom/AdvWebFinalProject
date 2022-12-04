@@ -11,7 +11,7 @@ namespace RecipeManager.Controllers.API
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    public class IngredientController : ControllerBase
+    public class IngredientAPIController : ControllerBase
     {
         private readonly IIngredientRepository _ingredientRepo;
 
@@ -19,7 +19,7 @@ namespace RecipeManager.Controllers.API
         /// Default constructor which injects the ingredient repository.
         /// </summary>
         /// <param name="ingredientRepo">An instance of the ingredient repository to be injected.</param>
-        public IngredientController(IIngredientRepository ingredientRepo)
+        public IngredientAPIController(IIngredientRepository ingredientRepo)
         {
             _ingredientRepo = ingredientRepo;
         }
