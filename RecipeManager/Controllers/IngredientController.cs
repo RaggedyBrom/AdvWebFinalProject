@@ -33,5 +33,19 @@ namespace RecipeManager.Controllers
             var model = ingredients.Select(i => IngredientVM.GetIngredientVM(i));
             return View(model);
         }
+
+        /// <summary>
+        /// Reads all the ingredients from the repository, converts them to view models,
+        /// and returns a partial view displaying a list of the ingredients along with "add"
+        /// buttons.
+        /// </summary>
+        /// <returns>A partial view that displays a list of IngredientVMs along with
+        /// "add" buttons.</returns>
+        public async Task<IActionResult> AddIngredientPartial()
+        {
+            var ingredients = await _ingredientRepo.ReadAllAsync();
+            var model = ingredients.Select(i => IngredientVM.GetIngredientVM(i));
+            return PartialView("_AddIngredient", model);
+        }
     }
 }
