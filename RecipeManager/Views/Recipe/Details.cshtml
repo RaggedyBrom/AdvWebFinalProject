@@ -8,7 +8,7 @@
 
 <div>
     <hr />
-    <p>@Html.DisplayFor(model => model.Description)"</p>
+    <p>@Html.DisplayFor(model => model.Description)</p>
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.PrepTime)
@@ -32,7 +32,7 @@
                 {
                     totalCalories += item.Calories ?? 0;
                 }
-                @totalCalories
+                        @totalCalories
             }
         </dd>
         <dt class="col-sm-2">
@@ -42,11 +42,21 @@
             <ul>
                 @foreach (var item in Model.RecipeIngredients)
                 {
-                    <li><b>@item.IngredientName</b> - @item.Amount - @item.Calories calories</li>
+                    <li>
+                        @item.IngredientName
+                        @if (item.Amount != "")
+                        {
+                            <text> - @item.Amount</text>
+                        }
+                        @if (item.Calories != null)
+                        {
+                            <text> - @item.Calories calories</text>
+                        }      
+                    </li>
                 }
                 @if (Model.RecipeIngredients.Count == 0)
                 {
-                    <span>none</span>
+                    <text>none</text>
                 }
             </ul>
         </dd>
