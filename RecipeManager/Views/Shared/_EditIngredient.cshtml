@@ -1,0 +1,37 @@
+﻿@model RecipeManager.Models.ViewModels.RecipeIngredientVM
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="_EditIngredient" id="editIngredientForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="IngredientName" class="control-label"></label>
+                <input asp-for="IngredientName" id="editIngredientNameInput" class="form-control" readonly/>
+                <span asp-validation-for="IngredientName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IngredientType" class="control-label"></label>
+                <input asp-for="IngredientType" id="editIngredientTypeInput" class="form-control" readonly />
+                <span asp-validation-for="IngredientType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Amount" class="control-label"></label>
+                <input asp-for="Amount" id="editIngredientAmountInput" class="form-control" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Calories" class="control-label"></label>
+                <input asp-for="Calories" id="editIngredientCaloriesInput" class="form-control" />
+                <span asp-validation-for="Calories" class="text-danger"></span>
+            </div>
+            <div id="editIngredientSaveBtn" class="form-group">
+                <input type="hidden" id="editIngredientIdInput" name="IngredientId"/>
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,137 @@
+﻿@model RecipeManager.Models.ViewModels.RecipeVM
+@using RecipeManager.Models.Entities;
+@using RecipeManager.Models.ViewModels
+
+@{
+    ViewData["Title"] = $"Editing recipe \"{Model.Name}\"";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+
+<div class="modal fade" id="addIngredientModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div id="addIngredientModalContent" class="modal-content">
+            <div class="modal-header">
+                <h4>Add a new ingredient to the recipe</h4>
+            </div>
+            <div class="modal-body" id="addIngredientModalBody">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editIngredientModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div id="editIngredientModalContent" class="modal-content">
+            <div class="modal-header">
+                <h4>Updating an ingredient</h4>
+            </div>
+            <div class="modal-body">
+                @{
+                    await Html.RenderPartialAsync("_EditIngredient", new RecipeIngredientVM());
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group  col-md-2">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group  col-md-5">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group  col-md-5">
+                <label asp-for="Instructions" class="control-label"></label>
+                <textarea asp-for="Instructions" class="form-control"></textarea>
+                <span asp-validation-for="Instructions" class="text-danger"></span>
+            </div>
+            <div class="form-group  col-md-1">
+                <label asp-for="PrepTime" class="control-label"></label>
+                <input asp-for="PrepTime" class="form-control" />
+                <span asp-validation-for="PrepTime" class="text-danger"></span>
+            </div>
+            <div class="form-group  col-md-1">
+                <label asp-for="CookTime" class="control-label"></label>
+                <input asp-for="CookTime" class="form-control" />
+                <span asp-validation-for="CookTime" class="text-danger"></span>
+            </div>
+            <hr />
+            <h4>Ingredients</h4>
+            <table class="col-md-12" id="ingredientsTable">
+                @{
+                    <thead>
+                        <tr>
+                            <th><label asp-for="RecipeIngredients[0].IngredientName"></label></th>
+                            <th><label asp-for="RecipeIngredients[0].IngredientType"></label></th>
+                            <th><label asp-for="RecipeIngredients[0].Amount"></label></th>
+                            <th><label asp-for="RecipeIngredients[0].Calories"></label></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.RecipeIngredients.Count; i++)
+                        {
+                            <tr>
+                                <td class="ingredientNameCell">
+                                    @Model.RecipeIngredients[i].IngredientName
+                                </td>
+                                <td class="ingredientTypeCell">
+                                    @Model.RecipeIngredients[i].IngredientType
+                                </td>
+                                <td class="ingredientAmountCell">
+                                    @Model.RecipeIngredients[i].Amount
+                                </td>
+                                <td class="ingredientCaloriesCell">
+                                    @Model.RecipeIngredients[i].Calories
+                                </td>
+                                <td class="ingredientBtnsCell">
+                                    <button type="button" class="btn btn-primary editIngredientBtn" value="@Model.RecipeIngredients[i].IngredientId">Edit</button>
+                                    <button type="button" class="btn btn-primary deleteIngredientBtn" value="@Model.RecipeIngredients[i].IngredientId">Delete</button>
+                                </td>
+                            </tr>
+                        }
+                        <tr id="blankIngredientRow" style="display:none;">
+                            <td class="ingredientNameCell">
+                            </td>
+                            <td class="ingredientTypeCell">
+                            </td>
+                            <td class="ingredientAmountCell">
+                            </td>
+                            <td class="ingredientCaloriesCell">
+                            </td>
+                            <td class="ingredientBtnsCell">
+                                <button type="button" class="btn btn-primary editIngredientBtn" value="">Edit</button>
+                                <button type="button" class="btn btn-primary deleteIngredientBtn" value="">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                }
+            </table>
+            <button type="button" id="addIngredientModalBtn" class="btn btn-primary">Add new ingredient</button>
+            <hr />
+            <input type="hidden" id="recipeIdInput" name="Id" value="@Model.Id" />
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script type="module" src="~/js/recipeEdit.js" defer></script>
+    }
