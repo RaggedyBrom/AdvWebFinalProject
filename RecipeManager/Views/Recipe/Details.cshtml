@@ -8,7 +8,7 @@
 
 <div>
     <hr />
-    <p>@Html.DisplayFor(model => model.Description)</p>
+    <p style="white-space:pre-line;">@Html.DisplayFor(model => model.Description)</p>
     <dl class="row">
         <div class=col-sm-6>
             <dt class="col-sm-2">
@@ -67,7 +67,7 @@
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Instructions)
         </dt>
-        <dd class="col-sm-12">
+        <dd class="col-sm-12" style="white-space:pre-line;">
             @Html.DisplayFor(model => model.Instructions)
         </dd>
     </dl>
