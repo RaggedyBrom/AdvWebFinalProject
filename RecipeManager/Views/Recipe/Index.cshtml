@@ -22,15 +22,24 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                <a asp-action="Details" asp-route-id=@item.Id title="Show recipe details">@Html.DisplayFor(modelItem => item.Name)</a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a asp-action="Details" asp-route-id=@item.Id title="Show recipe details">@Html.DisplayFor(modelItem => item.Name)</a>
+                </td>
+                <td>
+                    @if (item.Description!.Length > 80)
+                    {
+                        var abbrDescription = new String(item.Description.Take(80).ToArray());
+                        @Html.Encode(abbrDescription + "...")
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.Description)
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
