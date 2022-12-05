@@ -32,11 +32,13 @@ namespace RecipeManager.Services
         // Defined in IRecipeRepository
         public async Task<RecipeIngredient?> CreateIngredientAsync(int recipeId, int ingredientId)
         {
+            // Attempt to read the specified recipe and ingredient
             var recipe = await ReadAsync(recipeId);
             var ingredient = await _db.Ingredients.FirstOrDefaultAsync(i => i.Id == ingredientId);
 
             RecipeIngredient? recipeIngredient;
 
+            //
             if (recipe != null && ingredient != null)
             {
                 recipeIngredient = new RecipeIngredient();
