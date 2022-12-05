@@ -1,5 +1,6 @@
 ﻿"use strict";
 
+import { createIngredient } from "./ingredientRepository.js";
 import { addIngredient, removeIngredient, updateIngredient } from "./recipeRepository.js";
 
 const addIngredientModal = $("#addIngredientModal");
@@ -24,9 +25,33 @@ addIngredientModal.on("click", ".addIngredientBtn", async (e) => {
     addIngredientModal.modal("hide");
 });
 
-addIngredientModal.on("click", ".createIngredientBtn", async (e) => {
+// Event listener to handle clicks on the button that activates the Create Ingredient modal
+addIngredientModal.on("click", ".createIngredientModalBtn", async (e) => {
+
+    // Hide the Add Ingredient modal and show the Create Ingredient one
     addIngredientModal.modal("hide");
     createIngredientModal.modal("show");
+
+});
+
+// Event listener to handle events on the button the submits the Create Ingredient form
+createIngredientModal.on("click", ".createIngredientBtn", async (e) => {
+
+    // Prevent the form from submitting regularly
+    e.preventDefault();
+
+    // Grab the data from the form
+    const formData = new FormData($("#createIngredientForm")[0]);
+
+    // Use the repository to create the ingredient and store the returned JSON
+    const ingredient = await createIngredient(formData);
+
+    // Use the repository to add the newly-created ingredient to the recipe
+    const recipeIngredient = await addIngredient(recipeId, ingredient.id);
+
+    // Add a new table row for the new ingredient and hide the Create Ingredient modal
+    createIngredientRow(recipeIngredient);
+    createIngredientModal.modal("hide");
 });
 
 
