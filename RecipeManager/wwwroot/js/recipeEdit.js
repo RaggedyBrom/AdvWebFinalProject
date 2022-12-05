@@ -18,10 +18,18 @@ addIngredientModal.on("click", ".addIngredientBtn", async (e) => {
 
     // Use the repository to create the relationship between the recipe and ingredient, and get back
     // the JSON data representing the connection
-    const ingredient = await addIngredient(recipeId, ingredientId);
+    await addIngredient(recipeId, ingredientId);
+
+    // Construct the ingredient row data from the modal row
+    const row = $(e.target).parent().parent();
+    const rowData = {
+        ingredientName: row.find(".ingredientName").text(),
+        ingredientType: row.find(".ingredientType").text(),
+        ingredientId: ingredientId
+    };
 
     // Add the new ingredient to the table and hide the modal
-    createIngredientRow(ingredient);
+    createIngredientRow(rowData);
     addIngredientModal.modal("hide");
 });
 
@@ -49,8 +57,15 @@ createIngredientModal.on("click", ".createIngredientBtn", async (e) => {
     // Use the repository to add the newly-created ingredient to the recipe
     const recipeIngredient = await addIngredient(recipeId, ingredient.id);
 
+    // Construct the row data from the form and created ingredient
+    const rowData = {
+        ingredientName: $("#createIngredientName").val(),
+        ingredientType: $("#createIngredientType").val(),
+        ingredientId: ingredient.id
+    };
+
     // Add a new table row for the new ingredient and hide the Create Ingredient modal
-    createIngredientRow(recipeIngredient);
+    createIngredientRow(rowData);
     createIngredientModal.modal("hide");
 });
 
