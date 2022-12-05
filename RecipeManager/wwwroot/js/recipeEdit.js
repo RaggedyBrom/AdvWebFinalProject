@@ -4,6 +4,7 @@ import { addIngredient, removeIngredient, updateIngredient } from "./recipeRepos
 
 const addIngredientModal = $("#addIngredientModal");
 const editIngredientModal = $("#editIngredientModal");
+const createIngredientModal = $("#createIngredientModal");
 const ingredientsTable = $("#ingredientsTable");
 const recipeId = $("#recipeIdInput").val();
 
@@ -21,6 +22,11 @@ addIngredientModal.on("click", ".addIngredientBtn", async (e) => {
     // Add the new ingredient to the table and hide the modal
     createIngredientRow(ingredient);
     addIngredientModal.modal("hide");
+});
+
+addIngredientModal.on("click", ".createIngredientBtn", async (e) => {
+    addIngredientModal.modal("hide");
+    createIngredientModal.modal("show");
 });
 
 

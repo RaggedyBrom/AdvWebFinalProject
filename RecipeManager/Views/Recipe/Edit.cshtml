@@ -13,7 +13,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div id="addIngredientModalContent" class="modal-content">
             <div class="modal-header">
-                <h4>Add a new ingredient to the recipe</h4>
+                <h4>Adding an ingredient</h4>
             </div>
             <div class="modal-body" id="addIngredientModalBody">
             </div>
@@ -35,6 +35,23 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="createIngredientModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div id="createIngredientModalContent" class="modal-content">
+            <div class="modal-header">
+                <h4>Creating an ingredient</h4>
+            </div>
+            <div class="modal-body">
+                @{
+                    await Html.RenderPartialAsync("_CreateIngredient", new IngredientVM());
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <div class="row">
     <div class="col-md-12">
